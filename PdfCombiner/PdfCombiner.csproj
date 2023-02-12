@@ -25,4 +25,8 @@
     <Resource Include="info.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InstallableFiles\" />
+  </ItemGroup>
+
 </Project>
