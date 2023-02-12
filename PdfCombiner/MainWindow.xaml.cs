@@ -13,11 +13,6 @@ namespace PdfCombiner
         public string OutputFilePath = "";
         public string OutputFileName = "CombinedPDF";
 
-
-        /**************************************
-         * Only one more thing to add: drag and drop list sorting
-         * *********************************************/
-
         public MainWindow()
         {
             InitializeComponent();
@@ -54,6 +49,8 @@ namespace PdfCombiner
                     return;
                 }
             }
+
+            StatusBarStatus.Content = "Combining PDFs... Please wait...";
 
             PdfCopy writer = new(document, new FileStream($"{OutputFilePath}/{OutputFileName}.pdf", FileMode.Create));
             if (writer == null)
@@ -166,6 +163,71 @@ namespace PdfCombiner
         private void OutputFileNameText_Change(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             OutputFileName = OutputFileNameTextBox.Text;
+        }
+
+        private void MoveDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItemAction(false);
+        }
+
+        private void MoveUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItemAction(true);
+        }
+
+        private void MoveItemAction(bool moveUp)
+        {
+            if (ListOfPDFs.SelectedItems.Count == 0)
+            {
+                StatusBarStatus.Content = "Select an item to move";
+                return;
+            }
+
+            if (ListOfPDFs.SelectedItems.Count > 0)
+            {
+                if (ListOfPDFs.SelectedItems.Count > 1)
+                {
+                    StatusBarStatus.Content = "Please select only one item to move";
+                    return;
+                }
+
+                //Get item selected
+                string selectedItem = ListOfPDFs.SelectedItem.ToString();
+                int selectedIndex = ListOfPDFs.SelectedIndex;
+                bool moved = false;
+
+                //Insert item one above and re-select item
+                if (moveUp && selectedIndex > 0)
+                {
+                    FilePaths.RemoveAt(selectedIndex);
+                    FilePaths.Insert(selectedIndex - 1, selectedItem);
+                    moved = true;
+                }
+
+                //Insert item one below and re-select item
+                if (!moveUp && selectedIndex < FilePaths.Count - 1)
+                {
+                    FilePaths.RemoveAt(selectedIndex);
+                    FilePaths.Insert(selectedIndex + 1, selectedItem);
+                    ListOfPDFs.SelectedIndex = selectedIndex + 1;
+                    moved= true;
+                }
+
+                //Reset data
+                ListOfPDFs.ItemsSource = null;
+                ListOfPDFs.ItemsSource = FilePaths;
+
+                //Reselect item
+                if (moved)
+                {
+                    ListOfPDFs.SelectedIndex = moveUp ? selectedIndex - 1 : selectedIndex + 1;
+                } else
+                {
+                    ListOfPDFs.SelectedIndex = selectedIndex;
+                }
+
+                StatusBarStatus.Content = "Ready";
+            }
         }
     }
 }
