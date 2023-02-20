@@ -65,6 +65,22 @@ namespace PdfCombiner
 
         private bool ValidateInputs()
         {
+            //Validate files
+            if (FilePaths.Count < 2)
+            {
+                StatusBarStatus.Content = "You need to add at least 2 pdfs to combine!";
+                return false;
+            }
+
+            foreach (string path in FilePaths)
+            {
+                if (!File.Exists(path))
+                {
+                    StatusBarStatus.Content = "One or more files cannot be found, please try again";
+                    return false;
+                }
+            }
+
             //Validate Output Path
             if (System.String.IsNullOrEmpty(OutputFilePath))
             {
@@ -83,21 +99,21 @@ namespace PdfCombiner
                 return false;
             }
 
-            //Validate files
-            if (FilePaths.Count < 2)
+            //Validate Output File Name
+            if (OutputFileName.Length == 0)
             {
-                StatusBarStatus.Content = "You need to add at least 2 pdfs to combine!";
+                StatusBarStatus.Content = "Combined PDF File Name cannot be blank";
                 return false;
             }
 
-            foreach (string path in FilePaths)
+            //Check full file path
+            string fullPath = OutputFilePath + "/" + OutputFileName + ".pdf";
+            if (fullPath.Length > 256)
             {
-                if (!File.Exists(path))
-                {
-                    StatusBarStatus.Content = "One or more files cannot be found, please try again";
-                    return false;
-                }
+                StatusBarStatus.Content = $"Path + File is {fullPath.Length} characters. The max is 256";
+                return false;
             }
+
             return true;
         }
 
