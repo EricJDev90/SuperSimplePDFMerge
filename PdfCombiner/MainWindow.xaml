@@ -36,7 +36,7 @@
             </ListView.View>
         </ListView>
         <Label Content="Combined PDF File Name" Margin="80,332,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.462,0.46" HorizontalAlignment="Left" Width="148"/>
-        <TextBox x:Name="OutputFileNameTextBox" Margin="228,336,10,0" Grid.Row="1" TextWrapping="Wrap" Text="CombinedPDF" VerticalAlignment="Top" TextChanged="OutputFileNameText_Change"/>
+        <TextBox x:Name="OutputFileNameTextBox" Margin="228,336,10,0" Grid.Row="1" MaxLength="256" TextWrapping="NoWrap" Text="CombinedPDF" AcceptsReturn="False" VerticalAlignment="Top" TextChanged="OutputFileNameText_Change"/>
         <Button Content="Up" HorizontalAlignment="Left" Margin="12,15,0,0" Grid.Row="1" VerticalAlignment="Top" Width="37" Click="MoveUpButton_Click"/>
         <Button Content="Down" HorizontalAlignment="Left" Margin="57,15,0,0" Grid.Row="1" VerticalAlignment="Top" Click="MoveDownButton_Click"/>
     </Grid>
