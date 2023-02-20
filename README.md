@@ -1,6 +1,6 @@
 # Super Simple PDF Merge tool
 
-![Super Simple PDF Merge](https://github.com/[username]/[reponame]/blob/[branch]/image.png?raw=true)
+![Super Simple PDF Merge](https://github.com/EricJDev90/SuperSimplePDFMerge/blob/master/SuperSimplePDFMerge.png?raw=true)
 
 Written in C# with the iTextSharp library, this simple WPF app combines multiple PDFs into one. 
 
