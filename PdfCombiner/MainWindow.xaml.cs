@@ -235,7 +235,7 @@ namespace PdfCombiner
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Created by Eric Jansen ©2023", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Windows.MessageBox.Show("Created by Eric Jansen ©2023\nVersion 1.0.1", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MoveDownButton_Click(object sender, RoutedEventArgs e)
